@@ -1,0 +1,77 @@
+package com.example.demo;
+
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
+	@RefreshScope
+	@EnableDiscoveryClient
+	@RestController
+	@RibbonClient(name = "ping-a-server", configuration = RibbonConfiguration.class)
+	public class TestRestService {
+	 
+		   private static final Logger LOG = Logger.getLogger(SprCldMicroServiceRestApplication.class.getName());
+		    
+			//@LoadBalanced
+			@Bean
+			RestTemplate getRestTemplate() {
+			    return new RestTemplate();
+			}
+			
+			@Autowired
+			RestTemplate restTemplate;
+			
+			@Value("${key}")
+			String key;
+			
+			@Value("${protocol}")
+			String protocol;
+			
+			@Autowired
+			private Configuration configuration;
+			
+			@RequestMapping("/server-location")
+			@HystrixCommand(fallbackMethod = "serverLocation_Fallback")
+			public String serverLocation() {
+			    String servLoc = this.restTemplate.getForObject(protocol + "://ip-api.com/json/202.89.106.203", String.class); //3
+			    return servLoc;
+			}
+			
+			@RequestMapping("/sleuthTesting")
+			public String index() {
+			   LOG.log(Level.INFO, "Index API is calling");
+			   return "Welcome Sleuth!" + protocol;
+			}
+			
+			@SuppressWarnings("unused")
+			private String serverLocation_Fallback() {
+				 
+		       System.out.println("Hitec City, Hyderabad");
+		 
+		       return "CIRCUIT BREAKER ENABLED!!! No Response From Service Location at this moment. " +
+		                    " Service will be back shortly - " + new Date();
+		    }
+			
+			@Bean
+			public org.springframework.cloud.sleuth.sampler.SamplerAutoConfiguration defaultSampler() {
+			   return new org.springframework.cloud.sleuth.sampler.SamplerAutoConfiguration();
+			}
+
+			@RequestMapping("/configTesting")
+			public String configTest() {
+			   return "Configuration:" + Configuration.protocol + ", " + Configuration.key;
+			}
+	    
+	}

@@ -1,0 +1,67 @@
+package com.example.demo;
+
+import java.util.Calendar;
+
+import javax.naming.ServiceUnavailableException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+
+import com.altimetrik.playground.innovation.rabbitmq.MessagePublisher;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
+@RestController
+public class ServiceController {
+
+	@Autowired
+	protected RestTemplate restTemplate;
+
+	@Autowired
+	private MessagePublisher messagePublisher;
+
+	@Bean
+	@LoadBalanced
+	RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+
+	@GetMapping(value = "/")
+	public String home() {
+		return Calendar.getInstance().getTime().toString();
+	}
+
+	@GetMapping("/health-check")
+	public ResponseEntity<String> healthCheck() {
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+
+	@GetMapping("/discovery")
+	@HystrixCommand(fallbackMethod = "home")
+	public String validateDiscovery() throws RestClientException, ServiceUnavailableException {
+		return this.restTemplate.getForObject("http://playground-innovation/", String.class);
+	}
+
+	@GetMapping("/message")
+	@HystrixCommand(fallbackMethod = "home")
+	public String publishMessage() {
+		final String now = Calendar.getInstance().getTime().toString();
+		this.messagePublisher.publishMessageToQueue(now);
+		return now;
+	}
+
+	@GetMapping("/test")
+	public String test() {
+		return "application is deployed successfully and running";
+	}
+
+
+
+}
+

@@ -1,0 +1,4 @@
+zuul:  prefix: /zultest
+
+#routes.server-location.url=http://localhost:9003
+#server.port=8888

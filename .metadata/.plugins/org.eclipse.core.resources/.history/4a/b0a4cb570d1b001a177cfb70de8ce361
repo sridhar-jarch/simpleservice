@@ -1,0 +1,57 @@
+package com.example.demo;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(value = "/orders")
+public class OrdersService {
+
+    @Autowired
+    OrdersRepo orderRepo;
+
+    @GetMapping(value = "/all")
+    public List<Orders> getAll() {
+        return orderRepo.findAll();
+    }
+
+    @PostMapping(value = "/load")
+    public List<Orders> persist(@RequestBody final Orders order) {
+        orderRepo.save(order);
+        return orderRepo.findAll();
+    }
+	
+    @GetMapping(value = "/{orderId}")
+    public Optional<Orders> persist(@PathVariable final Integer orderId) {
+        return (Optional<Orders>) orderRepo.findById(orderId);
+    }
+    
+    @PutMapping("/orders/{id}")
+    Orders updateOrder(@RequestBody Orders newOrder, @PathVariable Integer id) {
+    	
+        return orderRepo.findById(id).map(order -> {
+        	return repository.save(order);
+        }).orElseGet(() -> {
+        	newOrder.setId(id);
+            return orderRepo.save(newOrder);
+        });
+    }
+ 
+    @DeleteMapping("/employees/{id}")
+    void deleteEmployee(@PathVariable Long id) {
+        repository.deleteById(id);
+    }
+    
+    //order.setDescription(newOrder.getDescription());
+	//order.setDate(newOrder.getDate());
+	//order.setTime(newOrder.getTime());
+}

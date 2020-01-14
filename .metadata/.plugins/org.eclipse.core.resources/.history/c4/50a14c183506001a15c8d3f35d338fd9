@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: restService
+  
+server:
+  port: 9002
+ 
+ping-server:
+  ribbon:
+    eureka:
+      enabled: true # Disable Default Ping
+    listOfServers: localhost:8000,localhost:8001,localhost:8002,localhost:8003
+    ServerListRefreshInterval: 15000
+     
+# -- Configure Discovery Client (Eureka Client).    
+# Configure this application to known "Service Registration".
+ 
+eureka:
+  instance:
+    appname: restservice  # ==> This is an instance of XYZ-SERVICE
+    instance-id: ${spring.application.name}:${random.value}
+  client:   
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka

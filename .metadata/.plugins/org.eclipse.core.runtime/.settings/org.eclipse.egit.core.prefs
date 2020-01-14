@@ -1,0 +1,4 @@
+GitRepositoriesView.GitDirectories=C\:\\Users\\sridhar.mosuru\\git\\spring-boot-config-server-example\\.git;C\:\\Users\\sridhar.mosuru\\git\\jhipster-registry\\.git;D\:\\STSWorkSpace\\spring-boot-config-server-example\\.git;D\:\\STSWorkSpace\\tutorials\\.git;
+GitRepositoriesView.GitDirectories.relative=C\:\\Users\\sridhar.mosuru\\git\\spring-boot-config-server-example\\.git;C\:\\Users\\sridhar.mosuru\\git\\jhipster-registry\\.git;spring-boot-config-server-example\\.git;tutorials\\.git;
+core_autoIgnoreDerivedResources=false
+eclipse.preferences.version=1
