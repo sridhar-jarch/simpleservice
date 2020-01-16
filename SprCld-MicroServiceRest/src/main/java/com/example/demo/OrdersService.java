@@ -37,15 +37,18 @@ public class OrdersService {
         return orderRepo.findById(orderId);
     }
     
-	/*
-	 * @GetMapping(value = "/{orderId}/validOTP") public boolean
-	 * validateOTP(@PathVariable final Integer orderId, @RequestBody String OTP) {
-	 * Integer sourceOTP = (orderRepo.findById(orderId)).orElseGet(null).getOTP();
-	 * return sourceOTP.intValue()==new Integer(OTP).intValue()?true:false;
-	 * 
-	 * }
-	 */
+    @GetMapping(value = "/{orderId}/resend")
+    public Integer resend(@PathVariable final Integer orderId) {
+    	Integer sourceOTP = (orderRepo.findById(orderId)).orElseGet(null).getOTP();
+    	return sourceOTP;
+    }
     
+	@PostMapping(value = "/{orderId}/validOTP") 
+	public boolean validateOTP(@PathVariable final Integer orderId, @RequestBody String OTP) {
+		Integer sourceOTP = (orderRepo.findById(orderId)).orElseGet(null).getOTP();
+		return sourceOTP.intValue()==new Integer(OTP).intValue()?true:false;
+	}
+	
     @PutMapping("/{orderId}")
     public Orders updateOrder(@RequestBody Orders newOrder, @PathVariable Integer orderId) {
     	    	
