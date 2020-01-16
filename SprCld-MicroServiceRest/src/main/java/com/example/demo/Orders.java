@@ -58,6 +58,13 @@ public class Orders {
 		super();
 	}
     
+    public Orders(OrderStatus orderStatus) {
+		super();
+		this.setId(orderStatus.getId());
+		this.setStatus(orderStatus.getStatus());
+		this.setDate(orderStatus.getDate());
+	}
+    
 	public Integer getId() {
 		return id;
 	}
