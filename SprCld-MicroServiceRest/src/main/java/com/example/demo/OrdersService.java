@@ -37,6 +37,17 @@ public class OrdersService {
         return orderRepo.findById(orderId);
     }
     
+    @GetMapping(value = "/agent/{agentId}")
+    public List<Orders> getOrdersByAgentId(@PathVariable final String agentId) {
+        return orderRepo.findByAgentId(agentId);
+    }
+    
+    @GetMapping(value = "/user/{userId}")
+    public List<Orders> getOrdersByUserId(@PathVariable final String userId) {
+        return orderRepo.findByUserId(userId);
+    }
+    
+    
     @GetMapping(value = "/{orderId}/resend")
     public Integer resend(@PathVariable final Integer orderId) {
     	Integer sourceOTP = (orderRepo.findById(orderId)).orElseGet(null).getOTP();

@@ -29,6 +29,8 @@ public class Orders {
     private String comments;
     @Column(name = "status")
     private String status;
+    @Column(name = "agentid")
+    private String agentid;
     
     public Integer getOTP() {
 		return OTP;
@@ -95,4 +97,11 @@ public class Orders {
 	public void setTime(LocalTime time) {
 		this.time = time;
 	}
+	public String getAgentid() {
+		return agentid;
+	}
+	public void setAgentid(String agentid) {
+		this.agentid = agentid;
+	}
+	
 }
