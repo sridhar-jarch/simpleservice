@@ -79,7 +79,7 @@ public class OrdersService {
     }
     
     @PatchMapping("/{orderId}")
-    public Orders patchOrder(@RequestBody OrderStatus orderstatus, @PathVariable Integer orderId) {
+    public Orders changeOrderStatus(@RequestBody OrderStatus orderstatus, @PathVariable Integer orderId) {
     
     	return orderRepo.findById(orderId).map(order -> {
     		order.setDescription(orderstatus.getStatus());
@@ -92,7 +92,17 @@ public class OrdersService {
         });
     	
     }
+    
+    @PatchMapping("/{orderId}/assign/{agentId}")
+    public Orders assignOrder(@PathVariable Integer orderId, @PathVariable String agentId ) {
+    
+    	return orderRepo.findById(orderId).map(order -> {
+    		order.setAgentid(agentId);
+    		return orderRepo.save(order);
+    	}).orElseThrow(null);//handle exception that given orderId does not exist
     	
+    }
+    
     @DeleteMapping("/{orderId}")
     void deleteEmployee(@PathVariable Integer orderId) {
     	orderRepo.deleteById(orderId);
