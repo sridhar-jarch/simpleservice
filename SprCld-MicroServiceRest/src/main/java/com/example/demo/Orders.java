@@ -31,8 +31,18 @@ public class Orders {
     private String status;
     @Column(name = "agentid")
     private String agentid;
+    @Column(name = "approved")
+    private Integer approved;
     
-    public Integer getOTP() {
+    public Integer getApproved() {
+		return approved;
+	}
+
+	public void setApproved(Integer approved) {
+		this.approved = approved;
+	}
+
+	public Integer getOTP() {
 		return OTP;
 	}
 

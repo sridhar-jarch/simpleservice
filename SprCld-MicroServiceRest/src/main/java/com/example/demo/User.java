@@ -19,13 +19,13 @@ public class User {
     @Column(name = "email")
     private String email;
     @Column(name = "enabled")
-    private String enabled;
+    private Integer enabled;
     @Column(name = "account_expired")
-    private String accountExpired;
+    private Integer accountExpired;
     @Column(name = "credentials_expired")
-    private String credentialsExpired;
+    private Integer credentialsExpired;
     @Column(name = "account_Locked")
-    private String accountLocked;
+    private Integer accountLocked;
     
 	public Integer getId() {
 		return id;
@@ -51,28 +51,28 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getEnabled() {
+	public Integer getEnabled() {
 		return enabled;
 	}
-	public void setEnabled(String enabled) {
+	public void setEnabled(Integer enabled) {
 		this.enabled = enabled;
 	}
-	public String getAccountExpired() {
+	public Integer getAccountExpired() {
 		return accountExpired;
 	}
-	public void setAccountExpired(String accountExpired) {
+	public void setAccountExpired(Integer accountExpired) {
 		this.accountExpired = accountExpired;
 	}
-	public String getCredentialsExpired() {
+	public Integer getCredentialsExpired() {
 		return credentialsExpired;
 	}
-	public void setCredentialsExpired(String credentialsExpired) {
+	public void setCredentialsExpired(Integer credentialsExpired) {
 		this.credentialsExpired = credentialsExpired;
 	}
-	public String getAccountLocked() {
+	public Integer getAccountLocked() {
 		return accountLocked;
 	}
-	public void setAccountLocked(String accountLocked) {
+	public void setAccountLocked(Integer accountLocked) {
 		this.accountLocked = accountLocked;
 	}
 

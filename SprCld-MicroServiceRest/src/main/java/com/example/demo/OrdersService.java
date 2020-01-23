@@ -103,6 +103,15 @@ public class OrdersService {
     	
     }
     
+    @PatchMapping("/{orderId}/approve/{approved}")
+    public Orders enableUser(@PathVariable Integer approved, @PathVariable Integer orderId ) {
+     	return orderRepo.findById(orderId).map(order -> {
+    		order.setApproved(approved);
+    		return orderRepo.save(order);
+    	}).orElseThrow(null);//handle exception that given orderId does not exist
+    	
+    }
+    
     @DeleteMapping("/{orderId}")
     void deleteEmployee(@PathVariable Integer orderId) {
     	orderRepo.deleteById(orderId);

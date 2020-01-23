@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -60,6 +61,23 @@ public class UserService {
    	
     }
  
+    @PatchMapping("/{userId}/enable/{enabled}")
+    public User enableUser(@PathVariable Integer enabled, @PathVariable Integer userId ) {
+     	return userRepo.findById(userId).map(user -> {
+    		user.setEnabled(enabled);
+    		return userRepo.save(user);
+    	}).orElseThrow(null);//handle exception that given orderId does not exist
+    	
+    }
+    
+    @PatchMapping("/{userId}/lock/{locked}")
+    public User assignOrder(@PathVariable Integer locked, @PathVariable Integer userId ) {
+    	return userRepo.findById(userId).map(user -> {
+    		user.setAccountLocked(locked);
+    		return userRepo.save(user);
+    	}).orElseThrow(null);//handle exception that given orderId does not exist
+    }
+	
     @DeleteMapping("/{userId}")
     void deleteEmployee(@PathVariable Integer userId) {
     	userRepo.deleteById(userId);
