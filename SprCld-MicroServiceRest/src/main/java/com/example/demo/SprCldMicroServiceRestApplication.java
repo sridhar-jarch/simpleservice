@@ -19,7 +19,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @SpringBootApplication
+@EnableSwagger2
 @EnableHystrixDashboard
 @EnableCircuitBreaker
 @EnableDiscoveryClient
