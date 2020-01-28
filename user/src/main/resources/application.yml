@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: restService
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/simpleservice
+    username: root
+    password: P1ngP0ng8*
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+            
+server:
+  port: 9006
+  
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA12cSanT0+s/r3nJC3KrB
+          vjeij5fy+uHTgTyGajUU9OWB/qa6jXPPCUPy57X1OoHo6Lq9fYDYuP8CaXA3z8mB
+          0SQaAHguR8YGacJhlWXWBsgM/ascKi3lEVurt9bdg0503M0f0SC5uCXfnd2LolkW
+          wXTPpZxTUO8cnUYCiSDY1I1EhXGo5g944N3kmNm2C/d3kAf9WOclN0SgiQJJkNDo
+          wSGpkPjU6L5LohEqUaTtwO2eoZfmkLsMi6I5zkehmLlVap+k2qpL0lovG9xrMk1h
+          sPXwLqEcOq3p1vom+Cud5Mj84T1MyRcQH7HTuTypwhzEh7pWDJmgP3wN2xucHLuc
+          QQIDAQAB
+          -----END PUBLIC KEY-----
+      
