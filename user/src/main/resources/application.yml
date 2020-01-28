@@ -3,9 +3,9 @@ spring:
     name: restService
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/simpleservice
+    url: jdbc:mysql://165.22.212.150:3306/simpleservice
     username: root
-    password: P1ngP0ng8*
+    password: 344a415ebf476a56a967a8e01f3ed8ee9b004c42771b0460
   jpa:
     hibernate.ddl-auto: update
     generate-ddl: true
