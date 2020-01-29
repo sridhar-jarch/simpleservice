@@ -2,9 +2,9 @@ server:
   port: 9001
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/simpleservice?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://165.22.212.150:3306/simpleservice?useSSL=false&allowPublicKeyRetrieval=true
     username: root
-    password: P1ngP0ng8*
+    password: 344a415ebf476a56a967a8e01f3ed8ee9b004c42771b0460
     driver-class-name: com.mysql.jdbc.Driver
     tomcat:
       test-while-idle: true
